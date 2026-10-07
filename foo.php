@@ -5,6 +5,8 @@
 // More money spent
 
 $username = $_GET['username'];
-$query = "SELECT * FROM users WHERE username = '" . $username . "'";
-$result = mysqli_query($conn, $query);
+$stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE username = ?");
+mysqli_stmt_bind_param($stmt, "s", $username);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 ?>
